@@ -8,22 +8,22 @@ class TestCalculateTotalInches(unittest.TestCase):
         self.assertEqual(calculateTotalInches(5, 9), 69)
 
     def test_negative_feet(self):
-        self.assertRaises(ValueError, calculateTotalInches(-5, 9))
+        self.assertRaises(ValueError, calculateTotalInches, -5, 9)
 
     def test_negative_inches(self):
-        self.assertRaises(ValueError, calculateTotalInches(5, -7))
+        self.assertRaises(ValueError, calculateTotalInches, 5, -7)
 
     def test_negative_inputs(self):
-        self.assertRaises(ValueError, calculateTotalInches(-5, -10))
+        self.assertRaises(ValueError, calculateTotalInches, -5, -10)
 
 
 class TestUserInput(unittest.TestCase):
     @patch("builtins.input", side_effect=["5", "9", "153"])
-    def test_get_user_input_valid(self):
-        self.assertEqual(get_user_input(), [5, 10, 15])
+    def test_get_user_input_valid(self, mock_input):
+        self.assertEqual(get_user_input(), [5, 9, 153])
 
     @patch("builtins.input", side_effect=["-3", "a", "6", "b", "-5", "0", "c", "200"])
-    def test_get_user_input_invalid(self):
+    def test_get_user_input_invalid(self, mock_input):
         self.assertEqual(get_user_input(), [6, 0, 200])
 
 
@@ -70,9 +70,15 @@ class TestBMICalculator(unittest.TestCase):
         current = 30
         while current >= 30:
             result = self.bmi_calculator.categorize_bmi(current)
-            msg = f"test_categorize_bmi unit test failed. {result} does not equal Overweight."
-            self.assertEqual("Overweight", result, msg)
+            msg = (
+                f"test_categorize_bmi unit test failed. {result} does not equal Obese."
+            )
+            self.assertEqual("Obese", result, msg)
             current += 0.1
 
-            if current == 31.1:
+            if current >= 31.1:
                 break
+
+
+if __name__ == "__main__":
+    unittest.main()

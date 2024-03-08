@@ -18,16 +18,13 @@ class TestCalculateTotalInches(unittest.TestCase):
 
 
 class TestUserInput(unittest.TestCase):
-    def setUp(self) -> None:
-        self.user_input = UserInput()
-
     @patch("builtins.input", side_effect=["5", "9", "153"])
     def test_get_user_input_valid(self):
-        self.assertEqual(self.user_input.get_user_input(), [5, 10, 15])
+        self.assertEqual(get_user_input(), [5, 10, 15])
 
     @patch("builtins.input", side_effect=["-3", "a", "6", "b", "-5", "0", "c", "200"])
     def test_get_user_input_invalid(self):
-        self.assertEqual(self.user_input.get_user_input(), [6, 0, 200])
+        self.assertEqual(get_user_input(), [6, 0, 200])
 
 
 class TestBMICalculator(unittest.TestCase):

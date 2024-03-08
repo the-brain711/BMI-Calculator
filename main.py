@@ -163,7 +163,7 @@ def main():
             bmi = None
             while True:
                 try:
-                    bmi = round(float(input("Enter your bmi: ")), 1)
+                    bmi = float(input("Enter your bmi: "))
 
                     if bmi < 0.0:
                         raise ValueError("Inches can't be a negative integer.")

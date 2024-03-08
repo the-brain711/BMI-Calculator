@@ -11,10 +11,10 @@ class UserInput:
 
 
 class BMICalculator:
-    def calculate(height: int, weight: int) -> float:
+    def calculate_bmi(height: int, weight: int) -> float:
         pass
 
-    def categorize(bmi: float) -> str:
+    def categorize_bmi(bmi: float) -> str:
         pass
 
 

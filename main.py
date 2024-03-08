@@ -5,26 +5,38 @@ def get_user_input() -> list[int]:
     while True:
         try:
             feet = int(input("Feet: "))
-            inputs.append(feet)
+
+            if feet < 0:
+                raise ValueError("Feet can't be a negative integer.")
+            else:
+                inputs.append(feet)
             break
-        except ValueError:
-            print("Input is not an integer. Please try again.")
+        except ValueError as e:
+            print(f"Invalid input: {e}. Please enter a valid, non-negative integer.")
 
     while True:
         try:
             inches = int(input("Inches: "))
-            inputs.append(inches)
+
+            if inches < 0:
+                raise ValueError("Inches can't be a negative integer.")
+            else:
+                inputs.append(inches)
             break
-        except ValueError:
-            print("Input is not an integer. Please try again.")
+        except ValueError as e:
+            print(f"Invalid input: {e}. Please enter a valid, non-negative integer.")
 
     while True:
         try:
             weight = int(input("\nPlease enter your weight in pounds(lbs): "))
-            inputs.append(weight)
+
+            if weight < 0:
+                raise ValueError("Weight can't be a negative integer.")
+            else:
+                inputs.append(weight)
             break
-        except ValueError:
-            print("Input is not an integer. Please try again.")
+        except ValueError as e:
+            print(f"Invalid input: {e}. Please enter a valid, non-negative integer.")
 
     return inputs
 

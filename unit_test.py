@@ -3,6 +3,20 @@ from unittest.mock import patch
 from main import *
 
 
+class TestCalculateTotalInches(unittest.TestCase):
+    def test_valid_inputs(self):
+        self.assertEqual(calculateTotalInches(5, 9), 69)
+
+    def test_negative_feet(self):
+        self.assertRaises(ValueError, calculateTotalInches(-5, 9))
+
+    def test_negative_inches(self):
+        self.assertRaises(ValueError, calculateTotalInches(5, -7))
+
+    def test_negative_inputs(self):
+        self.assertRaises(ValueError, calculateTotalInches(-5, -10))
+
+
 class TestUserInput(unittest.TestCase):
     def setUp(self) -> None:
         self.user_input = UserInput()

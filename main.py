@@ -52,8 +52,10 @@ def calculate_total_inches(feet: int, inches: int) -> int:
 
 class BMICalculator:
     def calculate_bmi(self, height: int, weight: int) -> float:
-        if height < 0 or weight < 0:
-            raise ValueError("Height and weight must be non-negative integers.")
+        if height <= 0 or weight <= 0:
+            raise ValueError(
+                "Height and weight must be non-zero and non-negative integers."
+            )
 
         # Multiply the weight in pounds by 0.45 (the metric conversion factor)
         weight = weight * 0.45

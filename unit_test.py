@@ -5,6 +5,7 @@ from main import *
 
 class TestCalculateTotalInches(unittest.TestCase):
     def test_valid_inputs(self):
+        self.assertEqual(calculate_total_inches(0, 1), 1)
         self.assertEqual(calculate_total_inches(5, 9), 69)
 
     def test_negative_feet(self):
@@ -32,6 +33,7 @@ class TestBMICalculator(unittest.TestCase):
         self.bmi_calculator = BMICalculator()
 
     def test_calculate_bmi(self):
+
         result = self.bmi_calculator.calculate_bmi(63, 125)
         msg = f"test_calculate_bmi unit test failed. {result} does not equal 22.7."
         self.assertEqual(22.7, result, msg)
@@ -40,6 +42,9 @@ class TestBMICalculator(unittest.TestCase):
         self.assertRaises(ValueError, self.bmi_calculator.calculate_bmi, -1, 100)
         self.assertRaises(ValueError, self.bmi_calculator.calculate_bmi, 60, -1)
         self.assertRaises(ValueError, self.bmi_calculator.calculate_bmi, -1, -1)
+        self.assertRaises(ValueError, self.bmi_calculator.calculate_bmi, 0, 156)
+        self.assertRaises(ValueError, self.bmi_calculator.calculate_bmi, 100, 0)
+        self.assertRaises(ValueError, self.bmi_calculator.calculate_bmi, 0, 0)
 
     def test_categorize_bmi(self):
         # Test Underweight Category

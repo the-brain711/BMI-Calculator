@@ -1,12 +1,5 @@
 class UserInput:
-    def __init__(self) -> None:
-        self.feet = None
-        self.inches = None
-        self.weight = None
-
-        self._getUserInput()
-
-    def _getUserInput(self) -> None:
+    def get_user_input() -> list[int]:
         pass
 
 

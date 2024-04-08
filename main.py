@@ -1,4 +1,5 @@
-from sys import exit
+from sys import exit, argv
+import streamlit
 
 
 def get_user_input() -> list[int]:
@@ -80,7 +81,7 @@ class BMICalculator:
             return "Obese"
 
 
-def main():
+def console_mode():
     bmi_calculator = BMICalculator()
 
     while True:
@@ -177,5 +178,65 @@ def main():
             exit()
 
 
+def web_app_mode():
+    bmi_calculator = BMICalculator()
+
+    def check_input(x, msg, check_for_zero=False):
+        try:
+            if check_for_zero:
+                if x <= 0:
+                    raise ValueError(msg)
+            else:
+                if x < 0:
+                    raise ValueError(msg)
+        except ValueError as e:
+            streamlit.exception(e)
+
+    # Title of web app
+    streamlit.markdown("# BMI Calculator")
+
+    # Ask for feet and inches for height
+    streamlit.markdown("### Height")
+    feet = streamlit.number_input("Feet", step=1)
+    inches = streamlit.number_input("Inches", step=1)
+    total_height = 0
+
+    if streamlit.button("Convert Height to Inches"):
+        check_input(feet, "Feet can't be a negative integer.")
+        check_input(inches, "Inches can't be a negative integer.")
+        total_height = calculate_total_inches(feet, inches)
+        streamlit.text(f"Total Height in Inches: {total_height}")
+
+    # Ask for weight in lbs
+    streamlit.markdown("### Weight")
+    weight = streamlit.number_input("Weight in lbs", step=1)
+
+    # BMI
+    streamlit.markdown("### BMI")
+    bmi = 0
+    if streamlit.button("Calculate BMI"):
+        total_height = calculate_total_inches(feet, inches)
+        check_input(
+            total_height, "Total Height must be a non-zero, non-negative integer."
+        )
+        check_input(weight, "Weight must be a non-zero, non-negative integer.")
+        bmi = bmi_calculator.calculate_bmi(total_height, weight)
+        streamlit.text(f"BMI: {bmi}")
+
+    bmi_category = ""
+    if streamlit.button("Categorize BMI"):
+        total_height = calculate_total_inches(feet, inches)
+        check_input(
+            total_height, "Total Height must be a non-zero, non-negative integer."
+        )
+        check_input(weight, "Weight must be a non-zero, non-negative integer.")
+        bmi = bmi_calculator.calculate_bmi(total_height, weight)
+        bmi_category = bmi_calculator.categorize_bmi(bmi)
+        streamlit.text(f"BMI Category: {bmi_category}")
+
+
 if __name__ == "__main__":
-    main()
+    if len(argv) == 2 and argv[1] == "-console":
+        console_mode()
+    else:
+        web_app_mode()

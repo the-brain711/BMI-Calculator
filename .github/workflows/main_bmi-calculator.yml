@@ -32,9 +32,10 @@ jobs:
           ruff --output-format=github .
         continue-on-error: true
 
-      - name: Run unit tests
+      - name: Run unit tests and generage coverage report
         run: |
-          .\unit_test.py
+          pip install coverage
+          coverage run -m unittest unit_test.py
       
   build:
     runs-on: ubuntu-latest

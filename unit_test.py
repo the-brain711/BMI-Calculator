@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from main import *
+from main import calculate_total_inches, get_user_input, BMICalculator
 
 
 class TestCalculateTotalInches(unittest.TestCase):

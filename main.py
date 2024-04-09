@@ -200,12 +200,14 @@ def web_app_mode():
     feet = streamlit.number_input("Feet", step=1)
     inches = streamlit.number_input("Inches", step=1)
     total_height = 0
+    height_textbox = streamlit.empty()
+    height_text = height_textbox.text(f"Total Height in Inches: {total_height}")
 
     if streamlit.button("Convert Height to Inches"):
         check_input(feet, "Feet can't be a negative integer.")
         check_input(inches, "Inches can't be a negative integer.")
         total_height = calculate_total_inches(feet, inches)
-        streamlit.text(f"Total Height in Inches: {total_height}")
+        height_text = height_textbox.text(f"Total Height in Inches: {total_height}")
 
     # Ask for weight in lbs
     streamlit.markdown("### Weight")
@@ -214,6 +216,8 @@ def web_app_mode():
     # BMI
     streamlit.markdown("### BMI")
     bmi = 0
+    bmi_textbox = streamlit.empty()
+    bmi_text = bmi_textbox.text(f"BMI: {bmi}")
     if streamlit.button("Calculate BMI"):
         total_height = calculate_total_inches(feet, inches)
         check_input(
@@ -221,9 +225,11 @@ def web_app_mode():
         )
         check_input(weight, "Weight must be a non-zero, non-negative integer.")
         bmi = bmi_calculator.calculate_bmi(total_height, weight)
-        streamlit.text(f"BMI: {bmi}")
+        bmi_text = bmi_textbox.text(f"BMI: {bmi}")
 
-    bmi_category = ""
+    bmi_category = "None"
+    bmi_category_textbox = streamlit.empty()
+    bmi_category_text = bmi_category_textbox.text(f"BMI Category: {bmi_category}")
     if streamlit.button("Categorize BMI"):
         total_height = calculate_total_inches(feet, inches)
         check_input(
@@ -232,7 +238,7 @@ def web_app_mode():
         check_input(weight, "Weight must be a non-zero, non-negative integer.")
         bmi = bmi_calculator.calculate_bmi(total_height, weight)
         bmi_category = bmi_calculator.categorize_bmi(bmi)
-        streamlit.text(f"BMI Category: {bmi_category}")
+        bmi_category_text = bmi_category_textbox.text(f"BMI Category: {bmi_category}")
 
 
 if __name__ == "__main__":

@@ -35,7 +35,13 @@ jobs:
       - name: Run unit tests and generage coverage report
         run: |
           pip install coverage
-          coverage run -m unittest unit_test.py
+          coverage run -m unittest unit_test.py\
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: the-brain711/BMI-Calculator
       
   build:
     runs-on: ubuntu-latest
